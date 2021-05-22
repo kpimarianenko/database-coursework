@@ -70,6 +70,7 @@ class CUI:
         return CUI.print_menu({
             'Average mark in group': lambda: analysis.create_average_mark_in_group_plot(),
             'Average mark by subject': lambda: analysis.create_average_mark_by_subject_plot(),
-            'Average mark in group by each subject': lambda: analysis.create_average_mark_in_group_by_each_subject_plot()
+            'Average mark in group by each subject': lambda: analysis.create_average_mark_in_group_by_each_subject_plot(),
+            'Age mark plot': lambda: analysis.create_age_mark_plot()
         }, 'Back')
 

@@ -6,7 +6,7 @@ from repositories.subjects_repository import subjects_repo
 from repositories.students_repository import students_repo
 from repositories.marks_repository import marks_repo
 
-graphics_folder_path = 'plots/'
+graphics_folder_path = 'outputs/plots/'
 
 
 def create_average_mark_in_group_plot():
@@ -24,21 +24,18 @@ def create_average_mark_in_group_plot():
 
 
 def create_average_mark_by_subject_plot():
-    try:
-        data = {}
-        subjects = subjects_repo.find_all()
+    data = {}
+    subjects = subjects_repo.find_all()
 
-        for s in subjects:
-            subject_id = s['_id']
-            subject_name = s['name']
-            subject_marks = marks_repo.find({'subject_id': subject_id})
-            mapped_marks = list(map(lambda m: m['value'], subject_marks))
-            mean_value = np.mean(mapped_marks) if len(mapped_marks) > 0 else 0
-            data[subject_name] = mean_value
+    for s in subjects:
+        subject_id = s['_id']
+        subject_name = s['name']
+        subject_marks = marks_repo.find({'subject_id': subject_id})
+        mapped_marks = list(map(lambda m: m['value'], subject_marks))
+        mean_value = np.mean(mapped_marks) if len(mapped_marks) > 0 else 0
+        data[subject_name] = mean_value
 
-        save_figure('average_mark_by_subject', lambda: plt.bar(data.keys(), data.values()))
-    except Exception as e:
-        print(e)
+    save_figure('average_mark_by_subject', lambda: plt.bar(data.keys(), data.values()))
 
 
 def create_average_mark_in_group_by_each_subject_plot():
@@ -60,6 +57,19 @@ def create_average_mark_in_group_by_each_subject_plot():
 
     plot = pd.DataFrame(data, index=list(map(lambda m: m['name'], groups))).plot(kind='bar')
     save_figure('average_mark_in_group_by_each_subject', plot=plot)
+
+
+def create_age_mark_plot():
+    data = {}
+    ages = students_repo.get_ages()
+
+    for a in ages:
+        marks = marks_repo.get_marks_by_student_age(a)
+        mapped_marks = list(map(lambda m: m['value'], marks))
+        mean_value = np.mean(mapped_marks) if len(mapped_marks) > 0 else 0
+        data[a] = mean_value
+
+    save_figure('age_mark_plot', lambda: plt.plot(data.keys(), data.values()))
 
 
 def save_figure(image_name, create_figure=None, plot=None):

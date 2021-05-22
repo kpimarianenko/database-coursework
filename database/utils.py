@@ -4,7 +4,7 @@ from repositories.students_repository import students_repo
 from repositories.marks_repository import marks_repo
 import json
 
-backup_file_path = 'backup.json'
+backup_file_path = 'outputs/backup.json'
 
 
 def drop():

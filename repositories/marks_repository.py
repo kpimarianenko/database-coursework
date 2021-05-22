@@ -26,5 +26,14 @@ class MarksRepository(BaseRepository):
             marks = np.append(marks, student_marks)
         return marks
 
+    def get_marks_by_student_age(self, age):
+        marks = []
+        students = students_repo.find({'age': age})
+
+        for s in students:
+            student_marks = self.find({'student_id': s['_id']})
+            marks = np.append(marks, student_marks)
+        return marks
+
 
 marks_repo = MarksRepository(db['marks'])

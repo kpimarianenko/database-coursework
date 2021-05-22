@@ -5,6 +5,9 @@ class BaseRepository:
     def insert(self, item) -> str:
         return self.collection.insert_one(item).inserted_id
 
+    def insert_all(self, items) -> str:
+        return self.collection.insert_many(items)
+
     def find_all(self):
         results = self.collection.find({})
         return [r for r in results]
@@ -21,3 +24,6 @@ class BaseRepository:
 
     def delete_one(self, query):
         self.collection.delete_one(query)
+
+    def drop(self):
+        self.collection.drop()

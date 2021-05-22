@@ -1,5 +1,5 @@
 from data_generators.main import generate_all
-from database.utils import drop
+from database.utils import drop, backup, restore
 
 
 class CUI:
@@ -28,7 +28,7 @@ class CUI:
                     menu[key]()
                     throw_error = False
                 index += 1
-            if throw_error:
+            if throw_error and choice != 0:
                 raise Exception()
             return choice
         except:
@@ -58,5 +58,7 @@ class CUI:
     def print_main_menu():
         return CUI.print_menu({
             'Generate random data': lambda: generate_all(1, 2, 3, 1),
-            'Drop data': lambda: CUI.prompt(drop)
+            'Drop data': lambda: CUI.prompt(drop),
+            'Create backup': lambda: backup(),
+            'Restore database': lambda: CUI.prompt(restore)
         })

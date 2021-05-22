@@ -1,39 +1,40 @@
 from data_generators.main import generate_all
 from database.utils import drop, backup, restore
+import analysis
 
 
 class CUI:
     @staticmethod
     def show():
-        while True:
-            choice = CUI.print_main_menu()
-            if choice == 0:
-                break
+        CUI.print_main_menu()
 
     @staticmethod
     def print_menu(menu, back_button_title='Exit'):
-        index = 1
-        for key in menu:
-            CUI.print_menu_row(index, key)
-            index += 1
-        CUI.print_menu_row(0, back_button_title)
-
-        try:
-            choice = CUI.get_choice()
+        while True:
             index = 1
-            throw_error = True
             for key in menu:
-                if index == choice:
-                    print()
-                    menu[key]()
-                    throw_error = False
+                CUI.print_menu_row(index, key)
                 index += 1
-            if throw_error and choice != 0:
-                raise Exception()
-            return choice
-        except:
-            print('Incorrect input. Try again.\n')
-            CUI.print_menu(menu, back_button_title)
+            CUI.print_menu_row(0, back_button_title)
+
+            try:
+                choice = CUI.get_choice()
+                if choice == 0:
+                    print()
+                    break
+
+                index = 1
+                throw_error = True
+                for key in menu:
+                    if index == choice:
+                        print()
+                        menu[key]()
+                        throw_error = False
+                    index += 1
+                if throw_error and choice != 0:
+                    raise Exception()
+            except:
+                print('Incorrect input. Try again.\n')
 
     @staticmethod
     def print_menu_row(key, title):
@@ -57,8 +58,18 @@ class CUI:
     @staticmethod
     def print_main_menu():
         return CUI.print_menu({
-            'Generate random data': lambda: generate_all(1, 2, 3, 1),
+            'Generate random data': lambda: generate_all(4, 5, 3, 3),
             'Drop data': lambda: CUI.prompt(drop),
             'Create backup': lambda: backup(),
-            'Restore database': lambda: CUI.prompt(restore)
+            'Restore database': lambda: CUI.prompt(restore),
+            'Data analysis': lambda: CUI.print_analysis_menu()
         })
+
+    @staticmethod
+    def print_analysis_menu():
+        return CUI.print_menu({
+            'Average mark in group': lambda: analysis.create_average_mark_in_group_plot(),
+            'Average mark by subject': lambda: analysis.create_average_mark_by_subject_plot(),
+            'Average mark in group by each subject': lambda: analysis.create_average_mark_in_group_by_each_subject_plot()
+        }, 'Back')
+

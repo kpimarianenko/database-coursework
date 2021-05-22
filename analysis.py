@@ -72,6 +72,22 @@ def create_age_mark_plot():
     save_figure('age_mark_plot', lambda: plt.plot(data.keys(), data.values()))
 
 
+def create_group_activity_pie_plot():
+    data = {}
+    groups = groups_repo.find_all()
+
+    for g in groups:
+        group_id = g['_id']
+        group_name = g['name']
+        count = marks_repo.get_group_marks_count(group_id)
+        data[group_name] = count
+
+    plt.title('Groups activity')
+    plt.axis('equal')
+
+    save_figure('group_activity_pie', lambda: plt.pie(data.values(), labels=data.keys(), shadow=True, autopct='%1.1f%%'))
+
+
 def save_figure(image_name, create_figure=None, plot=None):
     fig = plt.figure() if plot is None else plot.get_figure()
     if create_figure is not None:

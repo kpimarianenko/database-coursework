@@ -71,6 +71,7 @@ class CUI:
             'Average mark in group': lambda: analysis.create_average_mark_in_group_plot(),
             'Average mark by subject': lambda: analysis.create_average_mark_by_subject_plot(),
             'Average mark in group by each subject': lambda: analysis.create_average_mark_in_group_by_each_subject_plot(),
-            'Age mark plot': lambda: analysis.create_age_mark_plot()
+            'Age mark plot': lambda: analysis.create_age_mark_plot(),
+            'Group activity': lambda: analysis.create_group_activity_pie_plot()
         }, 'Back')
 

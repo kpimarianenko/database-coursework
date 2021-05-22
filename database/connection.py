@@ -1,6 +1,5 @@
 import pymongo
 import os
-from repositories.base_repository import BaseRepository
 from dotenv import load_dotenv
 
 load_dotenv()

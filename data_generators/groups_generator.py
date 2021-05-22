@@ -4,6 +4,7 @@ from data_generators.utils import write_generated_data
 from repositories.groups_repository import groups_repo
 
 faker = Faker()
+Faker.seed('groups')
 
 
 def generate_groups(quantity=10):

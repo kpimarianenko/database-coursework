@@ -58,7 +58,7 @@ class CUI:
     @staticmethod
     def print_main_menu():
         return CUI.print_menu({
-            'Generate random data': lambda: generate_all(4, 5, 3, 3),
+            'Generate random data': lambda: generate_all(5, 5, 8, 10),
             'Drop data': lambda: CUI.prompt(drop),
             'Create backup': lambda: backup(),
             'Restore database': lambda: CUI.prompt(restore),

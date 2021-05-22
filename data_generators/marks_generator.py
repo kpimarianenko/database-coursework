@@ -4,6 +4,7 @@ from data_generators.utils import write_generated_data
 from repositories.marks_repository import marks_repo
 
 faker = Faker()
+Faker.seed('marks')
 
 
 def generate_marks(student_id, subject_id, quantity=10):

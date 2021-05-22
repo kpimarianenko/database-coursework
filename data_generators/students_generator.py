@@ -4,6 +4,7 @@ from data_generators.utils import write_generated_data
 from repositories.students_repository import students_repo
 
 faker = Faker()
+Faker.seed('students')
 
 
 def generate_students(group_id, quantity=10):

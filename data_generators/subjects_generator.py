@@ -4,6 +4,7 @@ from data_generators.utils import write_generated_data
 from repositories.subjects_repository import subjects_repo
 
 faker = Faker()
+Faker.seed('subjects')
 
 
 def generate_subjects(quantity=10):
